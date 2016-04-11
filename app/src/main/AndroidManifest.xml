@@ -21,8 +21,6 @@
         </activity>
         <activity android:name=".AdminActivity" >
         </activity>
-        <activity android:name=".DeviceListActivity" >
-        </activity>
     </application>
 
 </manifest>
