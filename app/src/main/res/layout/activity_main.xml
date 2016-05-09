@@ -39,23 +39,26 @@
                 android:gravity="bottom|center_horizontal">
 
 
-                <Button
-                    android:layout_width="wrap_content"
+                <ImageButton
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:id="@+id/bottleButton1"
-                    android:background="#0000ff" />
+                    android:background="@drawable/a00" />
 
-                <Button
-                    android:layout_width="wrap_content"
+                <ImageButton
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:id="@+id/bottleButton2"
-                    android:background="#00ff00" />
+                    android:background="@drawable/a00" />
 
-                <Button
-                    android:layout_width="wrap_content"
+                <ImageButton
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:id="@+id/bottleButton3"
-                    android:background="#ff0000" />
+                    android:background="@drawable/a00" />
             </LinearLayout>
 
 
