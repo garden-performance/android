@@ -3,8 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="com.github.morimotor.gardenapp.AdminActivity">
+    tools:context="com.github.morimotor.gardenapp.LoginActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -13,11 +14,17 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp" />
 
-    <Button
+    <com.github.glomadrian.codeinputlib.CodeInput
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="更新"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal" />
+        android:id="@+id/codeInput"
+        app:underline_color="#457ad1"
+        app:underline_selected_color="#9e1ace"
+        app:text_color="#b12eff"
+        app:hint_color="#77ce9d"
+        app:hint_text="Pin code"
+        app:codes="4"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="100dp" />
 
 </LinearLayout>

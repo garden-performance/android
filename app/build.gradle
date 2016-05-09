@@ -29,4 +29,5 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     compile 'com.akexorcist:bluetoothspp:1.0.0'
     compile 'com.nispok:snackbar:2.11.0'
+    compile 'com.github.glomadrian:CodeInput:1.1@aar'
 }
