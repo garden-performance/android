@@ -3,11 +3,11 @@ package com.github.morimotor.gardenapp;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean isUpBottle2 = false;
     boolean isUpBottle3 = false;
 
+    boolean isMoving = false;
+
+    int gifDuration  = 1800;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,17 +76,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bottleButton2.setOnClickListener(this);
         bottleButton3.setOnClickListener(this);
 
-        try {
-            InputStream is = getAssets().open("rwineb.gif");
-            byte[] bytes = new byte[is.available()];
-            is.read(bytes);
-            is.close();
+        gifAnimation(bottleButton1, gifDuration, "wineb.gif");
+        gifAnimation(bottleButton2, gifDuration, "winer.gif");
+        gifAnimation(bottleButton3, gifDuration, "winey.gif");
 
-            bottleButton1.setBytes(bytes);
-            bottleButton1.startAnimation();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -250,18 +248,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void animationUp(View v){
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat( v, "translationY", v.getTranslationY(), -1000.0f );
-        objectAnimator.setDuration(500);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat( v, "translationY", v.getTranslationY(), -800.0f );
+        objectAnimator.setDuration(gifDuration);
         objectAnimator.start();
     }
     public void animationDown(View v){
         ObjectAnimator objectAnimator = ObjectAnimator.ofFloat( v, "translationY", v.getTranslationY(), 0.0f );
-        objectAnimator.setDuration(500);
+        objectAnimator.setDuration(gifDuration);
         objectAnimator.start();
     }
 
     @Override
     public void onClick(View v) {
+
+        if(isMoving)return;
 
         if(!connectFlag){
             Snackbar.with(activity)
@@ -292,15 +292,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     animationUp(bottleButton1);
                     animationDown(bottleButton2);
                     animationDown(bottleButton3);
+
+                    if(isUpBottle2)gifAnimation(bottleButton2, gifDuration, "winer.gif");
+                    if(isUpBottle3)gifAnimation(bottleButton3, gifDuration, "winey.gif");
+
                     isUpBottle1 = true;
                     isUpBottle2 = false;
                     isUpBottle3 = false;
-                    frameAnimationTest(activity, bottleButton1);
+
+                    gifAnimation(bottleButton1, gifDuration, "rwineb.gif");
+                    isMoving = true;
                     bt.send("a", true);
 
-                }
-                else{
+                } else{
                     animationDown(bottleButton1);
+                    gifAnimation(bottleButton1, gifDuration, "wineb.gif");
+                    isMoving = true;
                     isUpBottle1 = false;
                     bt.send("d", true);
                 }
@@ -311,14 +318,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     animationDown(bottleButton1);
                     animationUp(bottleButton2);
                     animationDown(bottleButton3);
+
+                    if(isUpBottle1)gifAnimation(bottleButton1, gifDuration, "wineb.gif");
+                    if(isUpBottle3)gifAnimation(bottleButton3, gifDuration, "winey.gif");
+
                     isUpBottle1 = false;
                     isUpBottle2 = true;
                     isUpBottle3 = false;
-                    frameAnimationTest(activity, bottleButton2);
+
+                    gifAnimation(bottleButton2, gifDuration, "rwiner.gif");
+                    isMoving = true;
                     bt.send("b", true);
 
                 } else{
                     animationDown(bottleButton2);
+                    gifAnimation(bottleButton2, gifDuration, "winer.gif");
+                    isMoving = true;
                     isUpBottle2 = false;
 
                     bt.send("e", true);
@@ -330,15 +345,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     animationDown(bottleButton1);
                     animationDown(bottleButton2);
                     animationUp(bottleButton3);
+
+                    if(isUpBottle1)gifAnimation(bottleButton1, gifDuration, "wineb.gif");
+                    if(isUpBottle2)gifAnimation(bottleButton2, gifDuration, "winer.gif");
+
                     isUpBottle1 = false;
                     isUpBottle2 = false;
                     isUpBottle3 = true;
-                    frameAnimationTest(activity, bottleButton3);
+
+                    gifAnimation(bottleButton3, gifDuration, "rwiney.gif");
+                    isMoving = true;
                     bt.send("c", true);
 
                 }
                 else{
                     animationDown(bottleButton3);
+                    gifAnimation(bottleButton3, gifDuration, "winey.gif");
+                    isMoving = true;
                     isUpBottle3 = false;
 
                     bt.send("f", true);
@@ -348,20 +371,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    // Frameアニメーションのテスト
-    void frameAnimationTest( Context con, View v ){
-        AnimationDrawable anim = new AnimationDrawable();
+    void gifAnimation(final GifImageView v, int duration, String filename){
+        try {
+            InputStream is = getAssets().open(filename);
+            byte[] bytes = new byte[is.available()];
+            is.read(bytes);
+            is.close();
 
-        // 画像の読み込み //
-
-        // 画像をアニメーションのコマとして追加していく
-
-
-
-        // ビューの背景画像にアニメーションを設定
-        v.setBackgroundDrawable( anim );
-
-        // アニメーション開始
-        anim.start();
+            v.setBytes(bytes);
+            v.startAnimation();
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    v.stopAnimation();
+                    isMoving = false;
+                }
+            }, duration);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 }
