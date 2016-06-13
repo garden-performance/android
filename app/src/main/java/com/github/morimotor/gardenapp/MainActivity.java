@@ -7,16 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.felipecsl.gifimageview.library.GifImageView;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
@@ -26,6 +25,9 @@ import com.squareup.otto.Subscribe;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import app.akexorcist.bluetotohspp.library.BluetoothSPP;
 import app.akexorcist.bluetotohspp.library.BluetoothState;
@@ -41,9 +43,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean connectFlag = false;
 
     Button topButton;
-    ImageButton bottleButton1;
-    ImageButton bottleButton2;
-    ImageButton bottleButton3;
+    GifImageView bottleButton1;
+    GifImageView bottleButton2;
+    GifImageView bottleButton3;
 
     boolean isTappedTopBotton = false;
     boolean isUpBottle1 = false;
@@ -61,14 +63,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // widget関係
         topButton = (Button) findViewById(R.id.topButton);
-        bottleButton1 = (ImageButton) findViewById(R.id.bottleButton1);
-        bottleButton2 = (ImageButton) findViewById(R.id.bottleButton2);
-        bottleButton3 = (ImageButton) findViewById(R.id.bottleButton3);
+        bottleButton1 = (GifImageView) findViewById(R.id.bottleButton1);
+        bottleButton2 = (GifImageView) findViewById(R.id.bottleButton2);
+        bottleButton3 = (GifImageView) findViewById(R.id.bottleButton3);
 
         topButton.setOnClickListener(this);
         bottleButton1.setOnClickListener(this);
         bottleButton2.setOnClickListener(this);
         bottleButton3.setOnClickListener(this);
+
+        try {
+            InputStream is = getAssets().open("rwineb.gif");
+            byte[] bytes = new byte[is.available()];
+            is.read(bytes);
+            is.close();
+
+            bottleButton1.setBytes(bytes);
+            bottleButton1.startAnimation();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -339,25 +353,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         AnimationDrawable anim = new AnimationDrawable();
 
         // 画像の読み込み //
-        Drawable frame0 = con.getResources().getDrawable( R.drawable.a00 );
-        Drawable frame1 = con.getResources().getDrawable( R.drawable.a01 );
-        Drawable frame2 = con.getResources().getDrawable( R.drawable.a02 );
-        Drawable frame3 = con.getResources().getDrawable( R.drawable.a03 );
-        Drawable frame4 = con.getResources().getDrawable( R.drawable.a04 );
-        Drawable frame5 = con.getResources().getDrawable( R.drawable.a05 );
-        Drawable frame6 = con.getResources().getDrawable( R.drawable.a06 );
-        Drawable frame7 = con.getResources().getDrawable( R.drawable.a07 );
-        Drawable frame8 = con.getResources().getDrawable( R.drawable.a08 );
 
         // 画像をアニメーションのコマとして追加していく
-        anim.addFrame( frame1,  10 );
-        anim.addFrame( frame2,  20 );
-        anim.addFrame( frame3,  30 );
-        anim.addFrame( frame4,  40 );
-        anim.addFrame( frame5,  50 );
-        anim.addFrame( frame6,  60 );
-        anim.addFrame( frame7,  70 );
-        anim.addFrame( frame8,  80 );
+
 
 
         // ビューの背景画像にアニメーションを設定

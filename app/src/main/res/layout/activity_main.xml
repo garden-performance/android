@@ -39,26 +39,24 @@
                 android:gravity="bottom|center_horizontal">
 
 
-                <ImageButton
+                <com.felipecsl.gifimageview.library.GifImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/bottleButton1"
-                    android:background="@drawable/a00" />
+                    android:id="@+id/bottleButton1"/>
 
-                <ImageButton
+                <com.felipecsl.gifimageview.library.GifImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/bottleButton2"
-                    android:background="@drawable/a00" />
+                    android:id="@+id/bottleButton2"/>
 
-                <ImageButton
+                <com.felipecsl.gifimageview.library.GifImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:id="@+id/bottleButton3"
-                    android:background="@drawable/a00" />
+                    android:id="@+id/bottleButton3"/>
+
             </LinearLayout>
 
 
