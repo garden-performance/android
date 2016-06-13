@@ -76,9 +76,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bottleButton2.setOnClickListener(this);
         bottleButton3.setOnClickListener(this);
 
-        gifAnimation(bottleButton1, gifDuration, "wineb.gif");
-        gifAnimation(bottleButton2, gifDuration, "winer.gif");
-        gifAnimation(bottleButton3, gifDuration, "winey.gif");
+        gifAnimation(bottleButton1, gifDuration, "rwineb.gif");
+        gifAnimation(bottleButton2, gifDuration, "rwiner.gif");
+        gifAnimation(bottleButton3, gifDuration, "rwiney.gif");
 
 
 
@@ -293,20 +293,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     animationDown(bottleButton2);
                     animationDown(bottleButton3);
 
-                    if(isUpBottle2)gifAnimation(bottleButton2, gifDuration, "winer.gif");
-                    if(isUpBottle3)gifAnimation(bottleButton3, gifDuration, "winey.gif");
+                    if(isUpBottle2)gifAnimation(bottleButton2, gifDuration, "rwiner.gif");
+                    if(isUpBottle3)gifAnimation(bottleButton3, gifDuration, "rwiney.gif");
 
                     isUpBottle1 = true;
                     isUpBottle2 = false;
                     isUpBottle3 = false;
 
-                    gifAnimation(bottleButton1, gifDuration, "rwineb.gif");
+                    gifAnimation(bottleButton1, gifDuration, "wineb.gif");
                     isMoving = true;
                     bt.send("a", true);
 
                 } else{
                     animationDown(bottleButton1);
-                    gifAnimation(bottleButton1, gifDuration, "wineb.gif");
+                    gifAnimation(bottleButton1, gifDuration, "rwineb.gif");
                     isMoving = true;
                     isUpBottle1 = false;
                     bt.send("d", true);
@@ -319,20 +319,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     animationUp(bottleButton2);
                     animationDown(bottleButton3);
 
-                    if(isUpBottle1)gifAnimation(bottleButton1, gifDuration, "wineb.gif");
-                    if(isUpBottle3)gifAnimation(bottleButton3, gifDuration, "winey.gif");
+                    if(isUpBottle1)gifAnimation(bottleButton1, gifDuration, "rwineb.gif");
+                    if(isUpBottle3)gifAnimation(bottleButton3, gifDuration, "rwiney.gif");
 
                     isUpBottle1 = false;
                     isUpBottle2 = true;
                     isUpBottle3 = false;
 
-                    gifAnimation(bottleButton2, gifDuration, "rwiner.gif");
+                    gifAnimation(bottleButton2, gifDuration, "winer.gif");
                     isMoving = true;
                     bt.send("b", true);
 
                 } else{
                     animationDown(bottleButton2);
-                    gifAnimation(bottleButton2, gifDuration, "winer.gif");
+                    gifAnimation(bottleButton2, gifDuration, "rwiner.gif");
                     isMoving = true;
                     isUpBottle2 = false;
 
@@ -346,21 +346,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     animationDown(bottleButton2);
                     animationUp(bottleButton3);
 
-                    if(isUpBottle1)gifAnimation(bottleButton1, gifDuration, "wineb.gif");
-                    if(isUpBottle2)gifAnimation(bottleButton2, gifDuration, "winer.gif");
+                    if(isUpBottle1)gifAnimation(bottleButton1, gifDuration, "rwineb.gif");
+                    if(isUpBottle2)gifAnimation(bottleButton2, gifDuration, "rwiner.gif");
 
                     isUpBottle1 = false;
                     isUpBottle2 = false;
                     isUpBottle3 = true;
 
-                    gifAnimation(bottleButton3, gifDuration, "rwiney.gif");
+                    gifAnimation(bottleButton3, gifDuration, "winey.gif");
                     isMoving = true;
                     bt.send("c", true);
 
                 }
                 else{
                     animationDown(bottleButton3);
-                    gifAnimation(bottleButton3, gifDuration, "winey.gif");
+                    gifAnimation(bottleButton3, gifDuration, "rwiney.gif");
                     isMoving = true;
                     isUpBottle3 = false;
 
